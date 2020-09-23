@@ -7,6 +7,7 @@ namespace PizzaManager.Models
     {
         [Key]
         public int pizza_id {get;set;}
+        public string name {get;set;}
         public string pizza_dough_type {get;set;}
         public bool is_calzone {get;set;}
     }

@@ -1,4 +1,5 @@
 using System;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -30,7 +31,7 @@ namespace PizzaManager
             });
 
             services.AddDbContext<MemoryDatabaseContext>(options => options.UseInMemoryDatabase(databaseName: "PizzaDb"));
-            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

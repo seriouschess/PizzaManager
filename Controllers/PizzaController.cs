@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using PizzaManager.Dtos;
 using PizzaManager.Models;
 
 namespace PizzaManager.Controllers
@@ -18,24 +20,31 @@ namespace PizzaManager.Controllers
         };
 
         private readonly ILogger<PizzaController> _logger;
-        private MemoryDatabaseContext dbContext;
-        public PizzaController(ILogger<PizzaController> logger, MemoryDatabaseContext _dbContext)
+        private MemoryDatabaseContext _dbContext;
+        private readonly IMapper _mapper; 
+        public PizzaController(ILogger<PizzaController> logger, MemoryDatabaseContext dbContext, IMapper mapper)
         {
-            dbContext = _dbContext;
+            _mapper = mapper;
+            _dbContext = dbContext;
             _logger = logger;
         }
 
         [HttpGet]
         public List<Pizza> GetAllPizzas()
         {
-           return dbContext.Pizzas.ToList();
+           return _dbContext.Pizzas.ToList();
         }
 
         [HttpPost]
-        public List<Pizza> AddPizza([FromBody] Pizza new_pizza){
-            dbContext.Add(new_pizza);
-            dbContext.SaveChanges();
-            return dbContext.Pizzas.ToList();
+        public List<PizzaDto> AddPizza([FromBody] Pizza new_pizza){
+            _dbContext.Add(new_pizza);
+            _dbContext.SaveChanges();
+            List<Pizza> all_pizzas = _dbContext.Pizzas.ToList();
+            List<PizzaDto> all_safe_pizzas = new List<PizzaDto>();
+            foreach(Pizza pizza in all_pizzas){
+                all_safe_pizzas.Add( _mapper.Map<PizzaDto>(pizza) );
+            }
+            return all_safe_pizzas;
         }
     }
 }
