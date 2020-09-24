@@ -32,6 +32,9 @@ namespace PizzaManager
 
             services.AddDbContext<MemoryDatabaseContext>(options => options.UseInMemoryDatabase(databaseName: "PizzaDb"));
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            // Register the Swagger services
+            services.AddSwaggerDocument(configure => configure.Title = "Pizza Manager API");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +66,10 @@ namespace PizzaManager
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
             });
+
+            // Register the Swagger generator and the Swagger UI middlewares
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseSpa(spa =>
             {
