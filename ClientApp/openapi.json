@@ -1,0 +1,114 @@
+{
+    "x-generator": "NSwag v13.7.4.0 (NJsonSchema v10.1.26.0 (Newtonsoft.Json v12.0.0.0))",
+    "swagger": "2.0",
+    "info": {
+      "title": "Pizza Manager API",
+      "version": "1.0.0"
+    },
+    "host": "127.0.0.1:5000",
+    "schemes": [
+      "http"
+    ],
+    "produces": [
+      "text/plain",
+      "application/json",
+      "text/json"
+    ],
+    "paths": {
+      "/Pizza": {
+        "get": {
+          "tags": [
+            "Pizza"
+          ],
+          "operationId": "Pizza_GetAllPizzas",
+          "responses": {
+            "200": {
+              "x-nullable": false,
+              "description": "",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Pizza"
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "Pizza"
+          ],
+          "operationId": "Pizza_AddPizza",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "application/*+json"
+          ],
+          "parameters": [
+            {
+              "name": "new_pizza",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Pizza"
+              },
+              "x-nullable": false
+            }
+          ],
+          "responses": {
+            "200": {
+              "x-nullable": false,
+              "description": "",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/PizzaDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Pizza": {
+        "type": "object",
+        "required": [
+          "pizza_id",
+          "is_calzone"
+        ],
+        "properties": {
+          "pizza_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "pizza_dough_type": {
+            "type": "string"
+          },
+          "is_calzone": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PizzaDto": {
+        "type": "object",
+        "required": [
+          "is_calzone"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "pizza_dough_type": {
+            "type": "string"
+          },
+          "is_calzone": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
