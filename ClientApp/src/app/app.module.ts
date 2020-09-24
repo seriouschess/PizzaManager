@@ -7,6 +7,10 @@ import { HomeComponent } from './home/home.component';
 import { PizzaDisplayComponent } from './pizza-display/pizza-display.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
+//api dependencies
+import { ApiModule } from './api';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +20,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ApiModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
