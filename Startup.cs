@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PizzaManager.BusinessLogic;
 using PizzaManager.Models;
 
 namespace PizzaManager
@@ -40,6 +41,15 @@ namespace PizzaManager
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            using (IServiceScope serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                MemoryDatabaseContext context = serviceScope.ServiceProvider.GetRequiredService<MemoryDatabaseContext>();
+
+                Queries db_queries = new Queries(context);
+                DatabaseInitializer db_init = new DatabaseInitializer(db_queries);
+                db_init.InitializeIngredients();
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

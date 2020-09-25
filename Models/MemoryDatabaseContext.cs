@@ -9,6 +9,8 @@ namespace PizzaManager.Models
 
         public DbSet<Pizza> Pizzas {get;set;}
 
-        public DbSet<Ingredient> Ingredients {get;set;}   
+        public DbSet<Ingredient> Ingredients {get;set;}
+
+        public DbSet<PizzaTopping> PizzaToppings {get;set;}  
     }
 }

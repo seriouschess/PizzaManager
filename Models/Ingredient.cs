@@ -8,5 +8,6 @@ namespace PizzaManager.Models
         [Key]
         public int ingredient_id {get;set;}
         public string ingredient_name {get;set;}
+        public List<PizzaTopping> pizza_toppings {get;set;}
     }
 }
