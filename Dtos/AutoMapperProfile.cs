@@ -8,7 +8,9 @@ namespace PizzaManager.Dtos
         public AutoMapperProfile()  
         {  
             CreateMap<PizzaDto, Pizza>();  
-            CreateMap<Pizza, PizzaDto>();  
+            CreateMap<Pizza, PizzaDto>(); 
+            CreateMap<NewPizzaDto, Pizza>();
+            CreateMap<Ingredient, IngredientDto>(); 
         }  
     }  
 }

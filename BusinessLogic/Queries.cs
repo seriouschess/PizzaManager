@@ -27,7 +27,12 @@ namespace PizzaManager.BusinessLogic
             }
         }
 
+        public List<Pizza> SearchPizzasByName(string pizza_name){
+            return _dbContext.Pizzas.Where(x => x.name == pizza_name).ToList(); 
+        }
+
         public Pizza AddNewPizza(Pizza new_pizza){
+            new_pizza.pizza_id = 0;
             _dbContext.Add(new_pizza);
             _dbContext.SaveChanges();
             return GetPizzaById(new_pizza.pizza_id);
@@ -43,7 +48,7 @@ namespace PizzaManager.BusinessLogic
                 subject_pizza.pizza_dough_type = updated_pizza.pizza_dough_type;
             }
 
-            subject_pizza.is_calzone = updated_pizza.is_calzone;
+            subject_pizza.is_calzone = updated_pizza.is_calzone; //always pass back boolean
 
             subject_pizza.UpdatedAt = DateTime.Now;
 
@@ -76,10 +81,23 @@ namespace PizzaManager.BusinessLogic
             }
         }
 
+        public List<string> GetIngredientForPizzaAsStringList( int pizza_id ){
+
+            //can return empty list
+            List<string> ingredient_strings = new List<string>();
+            List<PizzaTopping> toppings = _dbContext.PizzaToppings.Where(x => x.pizza_id == pizza_id).ToList();
+
+            foreach(PizzaTopping topping in toppings){
+                Ingredient found_ingredient = GetIngredientById( topping.ingredient_id );
+                ingredient_strings.Add(found_ingredient.ingredient_name);
+            }
+
+            return ingredient_strings;
+        }
+
         public List<Ingredient> GetAllIngreidnets(){
             return _dbContext.Ingredients.ToList();
         }
-
 
         //Pizza Topping Queries
 
@@ -91,9 +109,13 @@ namespace PizzaManager.BusinessLogic
 
             List<PizzaTopping> found_toppings = _dbContext.PizzaToppings.Where( x => x.pizza_id == pizza_id).Where(y => y.ingredient_id == ingredient_id).ToList();
             if( found_toppings.Count == 0 ){
+
+                //add topping association
                 PizzaTopping new_topping = new PizzaTopping();
                 new_topping.pizza_id = pizza_id;
                 new_topping.ingredient_id = ingredient_id;
+                _dbContext.Add(new_topping);
+                _dbContext.SaveChanges();
             }else if( found_toppings.Count == 1 ){
                 //nothing
             }else{
@@ -102,6 +124,14 @@ namespace PizzaManager.BusinessLogic
             }
 
             return involved_pizza;
+        }
+
+        public void DeleteToppingFromPizza( int pizza_id, int ingredient_id ){
+            List<PizzaTopping> found_toppings = _dbContext.PizzaToppings.Where( x => x.pizza_id == pizza_id).Where(y => y.ingredient_id == ingredient_id).ToList();
+            if(found_toppings.Count != 0){
+                _dbContext.PizzaToppings.Remove(found_toppings[0]);
+                _dbContext.SaveChanges();  
+            }
         }
     }
 }
