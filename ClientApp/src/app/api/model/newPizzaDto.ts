@@ -11,8 +11,7 @@
  */
 
 
-export interface Pizza { 
-    pizza_id: number;
+export interface NewPizzaDto { 
     name?: string;
     pizza_dough_type?: string;
     is_calzone: boolean;

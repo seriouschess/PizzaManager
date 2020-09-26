@@ -35,7 +35,9 @@ namespace PizzaManager.Controllers
             //format dto
             List<PizzaDto> all_pizza_dtos = new List<PizzaDto>();
             foreach(Pizza pizza in all_pizzas){
-                all_pizza_dtos.Add( _mapper.Map<PizzaDto>(pizza) );
+                PizzaDto pizza_dto = _mapper.Map<PizzaDto>(pizza);
+                pizza_dto.ingredients = _dbQueries.GetIngredientForPizzaAsStringList(pizza.pizza_id);
+                all_pizza_dtos.Add( pizza_dto );
             }
             return all_pizza_dtos;
         }

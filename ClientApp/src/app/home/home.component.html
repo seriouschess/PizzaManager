@@ -3,3 +3,12 @@
     <p>All Pizzas: {{ all_pizzas | json }}</p>
     <p>ok</p>
 </div>
+
+<h3> Add A Pizza: </h3>
+<button *ngIf="!pizza_to_add.is_calzone" class="btn btn-success" (click)="toggleCalzone">is not calzone</button>
+<button *ngIf="pizza_to_add.is_calzone" class="btn btn-warning" (click)="toggleCalzone">is calzone</button>
+<form class="form-horizontal" (submit)="postNewPizza()">
+    <label>Pizza Name: </label><input class="form-control" name="name" [(ngModel)]="pizza_to_add.name">
+    <label>Pizza Dough Type: </label><input class="form-control" name="pizza_dough_type" [(ngModel)]="pizza_to_add.pizza_dough_type">
+    <input class="btn btn-info" type="submit" value="Create new Pizza">
+</form>

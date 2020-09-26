@@ -11,11 +11,8 @@
  */
 
 
-export interface PizzaDto { 
-    pizza_id: number;
-    name?: string;
-    pizza_dough_type?: string;
-    is_calzone: boolean;
-    ingredients?: Array<string>;
+export interface IngredientDto { 
+    ingredient_id: number;
+    ingredient_name?: string;
 }
 
