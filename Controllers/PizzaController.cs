@@ -71,7 +71,7 @@ namespace PizzaManager.Controllers
         [HttpPut]
         public PizzaDto UpdatePizza([FromBody] PizzaDto updated_pizza){
             Pizza update_confirmation = _dbQueries.UpdatePizza( _mapper.Map<Pizza>(updated_pizza) );
-            return _mapper.Map<PizzaDto>(update_confirmation);
+            return _mapper.Map<PizzaDto>(GetOnePizza(update_confirmation.pizza_id));
         }
 
         [HttpDelete]

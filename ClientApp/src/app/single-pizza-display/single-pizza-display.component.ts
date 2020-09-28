@@ -14,8 +14,10 @@ export class SinglePizzaDisplayComponent implements OnInit {
   @Input() pizza:PizzaDto;
   all_ingredients:IngredientDto[];
   all_unused_ingredients:IngredientDto[];
+  update_mode:boolean;
 
   ngOnInit(): void {
+    this.update_mode = false;
     this.fetchIngredients();
   }
 
@@ -60,5 +62,16 @@ export class SinglePizzaDisplayComponent implements OnInit {
       output.push(pizza_ingredients[x].ingredient_name);
     }
     return output;
+  }
+
+  toggleUpdateUI(){
+    this.update_mode = !this.update_mode;
+  }
+
+  updatePizzaInformation(){
+    this._apiClient.pizzaUpdatePizza( this.pizza ).subscribe(res => {
+      this.pizza = res;
+      this.toggleUpdateUI();
+    });
   }
 }

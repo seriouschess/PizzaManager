@@ -9,6 +9,7 @@
             <h4 *ngIf="pizza.is_calzone"> Calzone: Yes</h4>
             <h4 *ngIf="!pizza.is_calzone">Calzone: No</h4>
             <div class="buffer-two"></div>
+            <p><button *ngIf="!update_mode" class="btn btn-success" (click)="toggleUpdateUI()">Update Information</button></p>
         </div>
         <div class="col-sm text-center">
             <div class="buffer-two"></div>
@@ -21,10 +22,35 @@
     </div>
 
     <div class="buffer-one"></div>
+
+    <p><button *ngIf="update_mode" class="btn btn-success" (click)="toggleUpdateUI()">Cancel Update</button></p>
+    <form class="form-group" *ngIf="update_mode" (submit)="updatePizzaInformation()">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="name">Pizza Name:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="name" [(ngModel)]="pizza.name" id="name" placeholder="pizza.name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="d-type">Pizza Dough Type:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="pizza_dough_type" [(ngModel)]="pizza.pizza_dough_type" id="d-type" placeholder="pizza.name">
+            </div>
+        </div>
+        <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">
+              <div class="checkbox">
+                <label><input type="checkbox" name="is_calzone" [(ngModel)]="pizza.is_calzone" placeholder="pizza.is_calzone"> Is Calzone</label>
+              </div>
+            </div>
+        </div>
+    <input class="btn btn-info" type="submit" value="Update Pizza Information">
+
+    <div class="buffer-one"></div>
     <div *ngIf="all_unused_ingredients.length != 0">
         <p> Unused Ingredients: </p>
         <div *ngFor="let uui of all_unused_ingredients">
             <p>{{uui.ingredient_name}} <button class="btn btn-info" (click)="addIngredientToPizza(pizza.pizza_id, uui.ingredient_id)">Add</button></p>
         </div>
     </div>
-  </div>
+</form>
