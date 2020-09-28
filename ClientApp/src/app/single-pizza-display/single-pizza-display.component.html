@@ -23,7 +23,7 @@
 
     <div class="buffer-one"></div>
 
-    <p><button *ngIf="update_mode" class="btn btn-success" (click)="toggleUpdateUI()">Cancel Update</button></p>
+    <p><button *ngIf="update_mode" class="btn btn-secondary" (click)="toggleUpdateUI()">Cancel Update</button></p>
     <form class="form-group" *ngIf="update_mode" (submit)="updatePizzaInformation()">
         <div class="form-group">
             <label class="control-label col-sm-2" for="name">Pizza Name:</label>
@@ -44,13 +44,14 @@
               </div>
             </div>
         </div>
-    <input class="btn btn-info" type="submit" value="Update Pizza Information">
+    <input class="btn btn-success" type="submit" value="Update Pizza Information">
+    </form>
 
     <div class="buffer-one"></div>
     <div *ngIf="all_unused_ingredients.length != 0">
-        <p> Unused Ingredients: </p>
+        <h4> Unused Ingredients: </h4>
         <div *ngFor="let uui of all_unused_ingredients">
             <p>{{uui.ingredient_name}} <button class="btn btn-info" (click)="addIngredientToPizza(pizza.pizza_id, uui.ingredient_id)">Add</button></p>
         </div>
     </div>
-</form>
+

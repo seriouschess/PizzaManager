@@ -46,6 +46,7 @@ export class PizzaDashboardComponent implements OnInit {
 
   deselectPizza(){
     this.selected_pizza = null;
+    this.update_dashboard.emit(true);
   }
 
 }

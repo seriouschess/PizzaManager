@@ -36,8 +36,9 @@
               <td><button class="btn btn-danger" (click)="deleteSelectedPizza(pizza.pizza_id)"> Delete </button></td>
             </tr>
             <tr>
-                <td *ngIf="pizza.ingredients.length > 0"> Ingredients: {{pizza.ingredients}}</td>
-                <td *ngIf="pizza.ingredients.length == 0"> Ingredients: None</td>
+                <td>Ingredients:</td>
+                <td *ngIf="pizza.ingredients.length > 0"> <span *ngFor="let ingr of pizza.ingredients"> {{ingr.ingredient_name}}, </span></td>
+                <td *ngIf="pizza.ingredients.length == 0"> None </td>
             </tr>    
           </tbody> 
       </table>

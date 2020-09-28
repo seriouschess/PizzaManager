@@ -1,5 +1,5 @@
 <h3> Add A Pizza: <button *ngIf="!add_pizza_selected" class="btn btn-success" (click)=toggleAddPizzaSelected()> Add Pizza </button>
-    <button *ngIf="add_pizza_selected" class="btn btn-success" (click)=toggleAddPizzaSelected()> Cancel Add Pizza </button></h3>
+    <button *ngIf="add_pizza_selected" class="btn btn-secondary" (click)=toggleAddPizzaSelected()> Cancel Add Pizza </button></h3>
 <form class="form-group" *ngIf="add_pizza_selected" (submit)="postNewPizza()">
     <div class="form-group">
         <label class="control-label col-sm-2" for="name">Pizza Name:</label>
