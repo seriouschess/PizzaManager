@@ -6,18 +6,19 @@ Made with Asp.NET Core 3.1 and Angular 9
 
 # Relavant folders
 
-- Frontend source --------------
+- FRONTEND SOURCE
 
 Clientapp/src/app/..
 
-    ../home - Parent component for main frontend logic
-    ../pizza-dashboard - Component which stores dashboard logic
-    ../single-pizza-display - Contains logic for displaying and modifying a single pizza
-    ../add-pizza - Form for addition of new pizzas
+../home - Parent component for main frontend logic
+../pizza-dashboard - Component which stores dashboard logic
+../single-pizza-display - Contains logic for displaying and modifying a single pizza
+../add-pizza - Form for addition of new pizzas
 
-    ../api - contains auto generated api service client using openapi format, see Project Use section for documentation
+../api - contains auto generated api service client using openapi format,
+          see Project Use section for documentation
 
-- Backend source ---------------
+- BACKEND SOURCE
 
 Models - Database model data and db context
 
