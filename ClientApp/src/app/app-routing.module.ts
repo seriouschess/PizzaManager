@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { PizzaDisplayComponent } from './pizza-display/pizza-display.component';
+import { SinglePizzaDisplayComponent } from './single-pizza-display/single-pizza-display.component';
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'test/pizza', component: PizzaDisplayComponent },
+  { path: 'pizza/one', component: SinglePizzaDisplayComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+.buffer-one{
+    height: 40px;
+    width: 100%;
+    display:block;
+}
+
+.buffer-two{
+    height: 20px;
+    width: 100%;
+    display:block;
+}

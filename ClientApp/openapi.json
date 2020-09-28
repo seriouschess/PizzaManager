@@ -15,7 +15,7 @@
     "text/json"
   ],
   "paths": {
-    "/Pizza": {
+    "/api/Pizza": {
       "get": {
         "tags": [
           "Pizza"
@@ -97,7 +97,7 @@
         }
       }
     },
-    "/Pizza/one/{pizza_id}": {
+    "/api/Pizza/one/{pizza_id}": {
       "get": {
         "tags": [
           "Pizza"
@@ -124,7 +124,34 @@
         }
       }
     },
-    "/Pizza/ingredients": {
+    "/api/Pizza/delete/{pizza_id}": {
+      "delete": {
+        "tags": [
+          "Pizza"
+        ],
+        "operationId": "Pizza_DeletePizza",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "pizza_id",
+            "in": "path",
+            "required": true,
+            "format": "int32",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/PizzaDto"
+            }
+          }
+        }
+      }
+    },
+    "/api/Pizza/ingredients": {
       "get": {
         "tags": [
           "Pizza"
@@ -144,7 +171,7 @@
         }
       }
     },
-    "/Pizza/topping/add/{pizza_id}/{ingredient_id}": {
+    "/api/Pizza/topping/add/{pizza_id}/{ingredient_id}": {
       "post": {
         "tags": [
           "Pizza"
@@ -179,7 +206,7 @@
         }
       }
     },
-    "/Pizza/topping/delete/{pizza_id}/{ingredient_id}": {
+    "/api/Pizza/topping/delete/{pizza_id}/{ingredient_id}": {
       "delete": {
         "tags": [
           "Pizza"
@@ -239,8 +266,23 @@
         "ingredients": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "#/definitions/IngredientDto"
           }
+        }
+      }
+    },
+    "IngredientDto": {
+      "type": "object",
+      "required": [
+        "ingredient_id"
+      ],
+      "properties": {
+        "ingredient_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ingredient_name": {
+          "type": "string"
         }
       }
     },
@@ -258,21 +300,6 @@
         },
         "is_calzone": {
           "type": "boolean"
-        }
-      }
-    },
-    "IngredientDto": {
-      "type": "object",
-      "required": [
-        "ingredient_id"
-      ],
-      "properties": {
-        "ingredient_id": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "ingredient_name": {
-          "type": "string"
         }
       }
     }

@@ -1,0 +1,62 @@
+
+<app-add-pizza *ngIf="selected_pizza == null || all_pizzas.length == 0" (pizza_added)="updateDashboard()"></app-add-pizza>
+<app-single-pizza-display *ngIf="selected_pizza != null" [pizza]="selected_pizza"></app-single-pizza-display>
+
+<h4 *ngIf="selected_pizza != null"> Back to dashboard: <button class="btn btn-success" (click)="deselectPizza()">Go</button> </h4>
+
+<div class="container">
+  <div *ngIf="selected_pizza == null && all_pizzas.length != 0">
+      <div class="row">
+          <div class="col-sm">
+          <h3> All Pizzas: </h3>
+          </div>
+          <div class="col-sm">
+              <button *ngIf="!detailed_view" class="btn btn-info" (click)="toggleDetailedView()">Detailed View</button>
+              <button *ngIf="detailed_view" class="btn btn-info" (click)="toggleDetailedView()">Minimise View</button>
+          </div>
+      </div>
+
+      <table class="table table-striped dashboard-table" *ngIf="detailed_view">
+          <thead>
+            <tr>
+              <th scope="col">Pizza Name</th>
+              <th scope="col">Pizza Dough Type</th>
+              <th scope="col">Calzone</th>
+              <th scope="col">Select Pizza</th>
+              <th scope="col">Delete Pizza</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let pizza of all_pizzas">
+            <tr>
+              <td>{{pizza.name}}</td>
+              <td>{{pizza.pizza_dough_type}}</td>
+              <td *ngIf="pizza.is_calzone"> Yes </td>
+              <td *ngIf="!pizza.is_calzone"> No </td>
+              <td><button class="btn btn-success" (click)="getSelectedPizza(pizza.pizza_id)"> Select </button></td>
+              <td><button class="btn btn-danger" (click)="deleteSelectedPizza(pizza.pizza_id)"> Delete </button></td>
+            </tr>
+            <tr>
+                <td *ngIf="pizza.ingredients.length > 0"> Ingredients: {{pizza.ingredients}}</td>
+                <td *ngIf="pizza.ingredients.length == 0"> Ingredients: None</td>
+            </tr>    
+          </tbody> 
+      </table>
+
+      <table class="table table-striped" *ngIf="!detailed_view">
+        <thead>
+          <tr>
+            <th scope="col">Pizza Name</th>
+            <th scope="col">Select Pizza</th>
+            <th scope="col">Delete Pizza</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pizza of all_pizzas">
+            <td>{{pizza.name}}</td>
+            <td><button class="btn btn-success" (click)="getSelectedPizza(pizza.pizza_id)"> Select </button></td>
+            <td><button class="btn btn-danger" (click)="deleteSelectedPizza(pizza.pizza_id)"> Delete </button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>

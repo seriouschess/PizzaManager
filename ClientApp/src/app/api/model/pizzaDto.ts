@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { IngredientDto } from './ingredientDto';
 
 
 export interface PizzaDto { 
@@ -16,6 +17,6 @@ export interface PizzaDto {
     name?: string;
     pizza_dough_type?: string;
     is_calzone: boolean;
-    ingredients?: Array<string>;
+    ingredients?: Array<IngredientDto>;
 }
 

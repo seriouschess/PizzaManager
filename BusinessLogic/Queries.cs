@@ -81,18 +81,18 @@ namespace PizzaManager.BusinessLogic
             }
         }
 
-        public List<string> GetIngredientForPizzaAsStringList( int pizza_id ){
+        public List<Ingredient> GetIngredientForPizzaAsStringList( int pizza_id ){
 
             //can return empty list
-            List<string> ingredient_strings = new List<string>();
+            List<Ingredient> ingredients = new List<Ingredient>();
             List<PizzaTopping> toppings = _dbContext.PizzaToppings.Where(x => x.pizza_id == pizza_id).ToList();
 
             foreach(PizzaTopping topping in toppings){
                 Ingredient found_ingredient = GetIngredientById( topping.ingredient_id );
-                ingredient_strings.Add(found_ingredient.ingredient_name);
+                ingredients.Add(found_ingredient);
             }
 
-            return ingredient_strings;
+            return ingredients;
         }
 
         public List<Ingredient> GetAllIngreidnets(){

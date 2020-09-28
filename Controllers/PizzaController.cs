@@ -12,7 +12,7 @@ using PizzaManager.Models;
 namespace PizzaManager.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class PizzaController : ControllerBase
     {
         private readonly ILogger<PizzaController> _logger;
@@ -36,7 +36,12 @@ namespace PizzaManager.Controllers
             List<PizzaDto> all_pizza_dtos = new List<PizzaDto>();
             foreach(Pizza pizza in all_pizzas){
                 PizzaDto pizza_dto = _mapper.Map<PizzaDto>(pizza);
-                pizza_dto.ingredients = _dbQueries.GetIngredientForPizzaAsStringList(pizza.pizza_id);
+                List<Ingredient> ingredients = _dbQueries.GetIngredientForPizzaAsStringList(pizza.pizza_id);
+                List<IngredientDto> ingredient_dtos = new List<IngredientDto>();
+                foreach(Ingredient ingredient in ingredients){
+                    ingredient_dtos.Add(_mapper.Map<IngredientDto>(ingredient));
+                }
+                pizza_dto.ingredients = ingredient_dtos;
                 all_pizza_dtos.Add( pizza_dto );
             }
             return all_pizza_dtos;
@@ -49,9 +54,17 @@ namespace PizzaManager.Controllers
             //get pizza
             Pizza found_pizza = _dbQueries.GetPizzaById( pizza_id );
 
-            //format dto
+            //format pizza dto
             PizzaDto found_pizza_dto = _mapper.Map<PizzaDto>(found_pizza);
-            found_pizza_dto.ingredients = _dbQueries.GetIngredientForPizzaAsStringList( pizza_id );
+            List<Ingredient> ingredients = _dbQueries.GetIngredientForPizzaAsStringList(pizza_id);
+
+            //convert each ingredient to ingredient dto
+            List<IngredientDto> ingredient_dtos = new List<IngredientDto>();
+            foreach(Ingredient ingredient in ingredients){
+                ingredient_dtos.Add(_mapper.Map<IngredientDto>(ingredient));
+            }
+
+            found_pizza_dto.ingredients = ingredient_dtos;
             return found_pizza_dto;
         }
 
@@ -59,6 +72,13 @@ namespace PizzaManager.Controllers
         public PizzaDto UpdatePizza([FromBody] PizzaDto updated_pizza){
             Pizza update_confirmation = _dbQueries.UpdatePizza( _mapper.Map<Pizza>(updated_pizza) );
             return _mapper.Map<PizzaDto>(update_confirmation);
+        }
+
+        [HttpDelete]
+        [Route("delete/{pizza_id}")]
+        public PizzaDto DeletePizza(int pizza_id){
+            Pizza deleted_pizza = _dbQueries.DeletePizzaById(pizza_id);
+            return _mapper.Map<PizzaDto>(deleted_pizza);
         }
 
         [HttpPost]

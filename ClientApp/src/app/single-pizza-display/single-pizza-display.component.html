@@ -1,0 +1,30 @@
+  <div class="container">
+    <div class="row border">
+        <div class="col-sm border">
+            <div class="buffer-one"></div>
+            <h3>Name: {{pizza.name}}</h3>
+            <div class="buffer-one"></div>
+            <h4> Dough Type: {{pizza.pizza_dough_type}} </h4>
+            <div class="buffer-two"></div>
+            <h4 *ngIf="pizza.is_calzone"> Calzone: Yes</h4>
+            <h4 *ngIf="!pizza.is_calzone">Calzone: No</h4>
+            <div class="buffer-two"></div>
+        </div>
+        <div class="col-sm text-center">
+            <div class="buffer-two"></div>
+            <h4>Ingredients:</h4>
+            <p *ngIf="pizza.ingredients.length == 0">None</p>
+            <ul class="list-group" *ngFor="let ingr of pizza.ingredients">
+                <li class="list-group-item"> {{ingr.ingredient_name}} <button class="btn btn-danger" (click)="removeIngredientFromPizza(pizza.pizza_id, ingr.ingredient_id)">Remove</button></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="buffer-one"></div>
+    <div *ngIf="all_unused_ingredients.length != 0">
+        <p> Unused Ingredients: </p>
+        <div *ngFor="let uui of all_unused_ingredients">
+            <p>{{uui.ingredient_name}} <button class="btn btn-info" (click)="addIngredientToPizza(pizza.pizza_id, uui.ingredient_id)">Add</button></p>
+        </div>
+    </div>
+  </div>

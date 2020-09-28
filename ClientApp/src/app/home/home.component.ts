@@ -11,33 +11,14 @@ export class HomeComponent implements OnInit {
 
   constructor(private _apiClient:PizzaService) { }
 
-  all_pizzas: any;
-  pizza_to_add: NewPizzaDto;
-  current_pizza: PizzaDto;
+  all_pizzas: PizzaDto[];
 
   ngOnInit(): void {
-    this.pizza_to_add = {
-      name: "",
-      pizza_dough_type: "",
-      is_calzone: false
-    }
-    this.getAllPizzas();
+    this.updateDashboard();
   }
 
-  postNewPizza(){
-    this._apiClient.pizzaAddPizza(this.pizza_to_add).subscribe((res) =>{
-      this.current_pizza = res
-      this.getAllPizzas();
-    });
-  }
-
-  getAllPizzas(){
+  updateDashboard(){
     this._apiClient.pizzaGetAllPizzas().subscribe((res) =>
     this.all_pizzas = res);
   }
-
-  toggleCalzone(){
-    this.pizza_to_add.is_calzone = !this.pizza_to_add.is_calzone;
-  }
-
 }

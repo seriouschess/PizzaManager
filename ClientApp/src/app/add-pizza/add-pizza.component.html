@@ -1,0 +1,24 @@
+<h3> Add A Pizza: <button *ngIf="!add_pizza_selected" class="btn btn-success" (click)=toggleAddPizzaSelected()> Add Pizza </button>
+    <button *ngIf="add_pizza_selected" class="btn btn-success" (click)=toggleAddPizzaSelected()> Cancel Add Pizza </button></h3>
+<form class="form-group" *ngIf="add_pizza_selected" (submit)="postNewPizza()">
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="name">Pizza Name:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" name="name" [(ngModel)]="pizza_to_add.name" id="name" placeholder="Enter Name">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="d-type">Pizza Dough Type:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" name="pizza_dough_type" [(ngModel)]="pizza_to_add.pizza_dough_type" id="d-type" placeholder="Enter Dough Type">
+        </div>
+    </div>
+    <div class="form-group">        
+        <div class="col-sm-offset-2 col-sm-10">
+          <div class="checkbox">
+            <label><input type="checkbox" name="is_calzone" [(ngModel)]="pizza_to_add.is_calzone"> Is Calzone</label>
+          </div>
+        </div>
+    </div>
+    <input class="btn btn-info" type="submit" value="Create new Pizza">
+</form>

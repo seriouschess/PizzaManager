@@ -133,7 +133,7 @@ export class PizzaService {
             responseType = 'text';
         }
 
-        return this.httpClient.post<PizzaDto>(`${this.configuration.basePath}/Pizza`,
+        return this.httpClient.post<PizzaDto>(`${this.configuration.basePath}/api/Pizza`,
             newPizzaDto,
             {
                 responseType: <any>responseType,
@@ -184,8 +184,54 @@ export class PizzaService {
             responseType = 'text';
         }
 
-        return this.httpClient.post<PizzaDto>(`${this.configuration.basePath}/Pizza/topping/add/${encodeURIComponent(String(pizzaId))}/${encodeURIComponent(String(ingredientId))}`,
+        return this.httpClient.post<PizzaDto>(`${this.configuration.basePath}/api/Pizza/topping/add/${encodeURIComponent(String(pizzaId))}/${encodeURIComponent(String(ingredientId))}`,
             null,
+            {
+                responseType: <any>responseType,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param pizzaId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public pizzaDeletePizza(pizzaId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json'}): Observable<PizzaDto>;
+    public pizzaDeletePizza(pizzaId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json'}): Observable<HttpResponse<PizzaDto>>;
+    public pizzaDeletePizza(pizzaId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json'}): Observable<HttpEvent<PizzaDto>>;
+    public pizzaDeletePizza(pizzaId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json'}): Observable<any> {
+        if (pizzaId === null || pizzaId === undefined) {
+            throw new Error('Required parameter pizzaId was null or undefined when calling pizzaDeletePizza.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'text/plain',
+                'application/json',
+                'text/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
+        return this.httpClient.delete<PizzaDto>(`${this.configuration.basePath}/api/Pizza/delete/${encodeURIComponent(String(pizzaId))}`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -227,7 +273,7 @@ export class PizzaService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<Array<PizzaDto>>(`${this.configuration.basePath}/Pizza`,
+        return this.httpClient.get<Array<PizzaDto>>(`${this.configuration.basePath}/api/Pizza`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -269,7 +315,7 @@ export class PizzaService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<Array<IngredientDto>>(`${this.configuration.basePath}/Pizza/ingredients`,
+        return this.httpClient.get<Array<IngredientDto>>(`${this.configuration.basePath}/api/Pizza/ingredients`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -315,7 +361,7 @@ export class PizzaService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<PizzaDto>(`${this.configuration.basePath}/Pizza/one/${encodeURIComponent(String(pizzaId))}`,
+        return this.httpClient.get<PizzaDto>(`${this.configuration.basePath}/api/Pizza/one/${encodeURIComponent(String(pizzaId))}`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -365,7 +411,7 @@ export class PizzaService {
             responseType = 'text';
         }
 
-        return this.httpClient.delete<PizzaDto>(`${this.configuration.basePath}/Pizza/topping/delete/${encodeURIComponent(String(pizzaId))}/${encodeURIComponent(String(ingredientId))}`,
+        return this.httpClient.delete<PizzaDto>(`${this.configuration.basePath}/api/Pizza/topping/delete/${encodeURIComponent(String(pizzaId))}/${encodeURIComponent(String(ingredientId))}`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -422,7 +468,7 @@ export class PizzaService {
             responseType = 'text';
         }
 
-        return this.httpClient.put<PizzaDto>(`${this.configuration.basePath}/Pizza`,
+        return this.httpClient.put<PizzaDto>(`${this.configuration.basePath}/api/Pizza`,
             updatedPizza,
             {
                 responseType: <any>responseType,
