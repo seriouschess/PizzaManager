@@ -37,7 +37,7 @@
             </tr>
             <tr>
                 <td>Ingredients:</td>
-                <td *ngIf="pizza.ingredients.length > 0"> <span *ngFor="let ingr of pizza.ingredients"> {{ingr.ingredient_name}}, </span></td>
+                <td *ngIf="pizza.ingredients.length > 0"> <span *ngFor="let ingr of pizza.ingredients; let i = index"> {{ingr.ingredient_name}} <span *ngIf="i != pizza.ingredients.length -1">,</span></span></td>
                 <td *ngIf="pizza.ingredients.length == 0"> None </td>
             </tr>    
           </tbody> 

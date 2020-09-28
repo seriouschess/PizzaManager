@@ -1,6 +1,7 @@
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IngredientDto, PizzaDto, PizzaService } from '../api';
+import { ValidatorService } from '../validator.service';
 
 @Component({
   selector: 'app-single-pizza-display',
@@ -9,7 +10,7 @@ import { IngredientDto, PizzaDto, PizzaService } from '../api';
 })
 export class SinglePizzaDisplayComponent implements OnInit {
 
-  constructor(private _apiClient:PizzaService) { }
+  constructor(private _apiClient:PizzaService, private _validator:ValidatorService) { }
 
   @Input() pizza:PizzaDto;
   @Output() pizza_updated = new EventEmitter<boolean>();
@@ -18,7 +19,13 @@ export class SinglePizzaDisplayComponent implements OnInit {
   update_mode:boolean;
   pizza_to_update:PizzaDto;
 
+  //validation fields
+  valid_name:boolean;
+  valid_dough:boolean;
+
   ngOnInit(): void {
+    this.valid_name = false;
+    this.valid_dough = false;
     this.update_mode = false;
     this.fetchIngredients();
   }
@@ -81,10 +88,14 @@ export class SinglePizzaDisplayComponent implements OnInit {
   }
 
   updatePizzaInformation(){
-    this._apiClient.pizzaUpdatePizza( this.pizza_to_update ).subscribe(res => {
-      this.pizza = res;
-      this.toggleUpdateUI();
-      this.pizza_updated.emit(true);
-    });
+    this.valid_name = this._validator.validateString(this.pizza_to_update.name);
+    this.valid_dough = this._validator.validateString(this.pizza_to_update.pizza_dough_type);
+    if(this.valid_name && this.valid_dough){
+      this._apiClient.pizzaUpdatePizza( this.pizza_to_update ).subscribe(res => {
+        this.pizza = res;
+        this.toggleUpdateUI();
+        this.pizza_updated.emit(true);
+      });
+    }
   }
 }

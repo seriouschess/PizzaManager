@@ -26,12 +26,14 @@
     <p><button *ngIf="update_mode" class="btn btn-secondary" (click)="toggleUpdateUI()">Cancel Update</button></p>
     <form class="form-group" *ngIf="update_mode" (submit)="updatePizzaInformation()">
         <div class="form-group">
-            <label class="control-label col-sm-2" for="name">Pizza Name:</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" name="name" [(ngModel)]="pizza_to_update.name" id="name" placeholder="pizza.name">
-            </div>
+          <p class="text-danger" *ngIf="!valid_name">A pizza's name must be between 2 and 30 characters</p>
+          <label class="control-label col-sm-2" for="name">Pizza Name:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="name" [(ngModel)]="pizza_to_update.name" id="name" placeholder="pizza.name">
+          </div>
         </div>
         <div class="form-group">
+            <p class="text-danger" *ngIf="!valid_dough">Pizza dough description must be between 2 and 30 characters</p>
             <label class="control-label col-sm-2" for="d-type">Pizza Dough Type:</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" name="pizza_dough_type" [(ngModel)]="pizza_to_update.pizza_dough_type" id="d-type" placeholder="pizza.name">
