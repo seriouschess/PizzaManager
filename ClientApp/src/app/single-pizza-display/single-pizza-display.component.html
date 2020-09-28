@@ -28,19 +28,19 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="name">Pizza Name:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="name" [(ngModel)]="pizza.name" id="name" placeholder="pizza.name">
+              <input type="text" class="form-control" name="name" [(ngModel)]="pizza_to_update.name" id="name" placeholder="pizza.name">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="d-type">Pizza Dough Type:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="pizza_dough_type" [(ngModel)]="pizza.pizza_dough_type" id="d-type" placeholder="pizza.name">
+              <input type="text" class="form-control" name="pizza_dough_type" [(ngModel)]="pizza_to_update.pizza_dough_type" id="d-type" placeholder="pizza.name">
             </div>
         </div>
         <div class="form-group">        
             <div class="col-sm-offset-2 col-sm-10">
               <div class="checkbox">
-                <label><input type="checkbox" name="is_calzone" [(ngModel)]="pizza.is_calzone" placeholder="pizza.is_calzone"> Is Calzone</label>
+                <label><input type="checkbox" name="is_calzone" [(ngModel)]="pizza_to_update.is_calzone" placeholder="pizza.is_calzone"> Is Calzone</label>
               </div>
             </div>
         </div>

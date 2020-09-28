@@ -1,6 +1,6 @@
 
 <app-add-pizza *ngIf="selected_pizza == null || all_pizzas.length == 0" (pizza_added)="updateDashboard()"></app-add-pizza>
-<app-single-pizza-display *ngIf="selected_pizza != null" [pizza]="selected_pizza"></app-single-pizza-display>
+<app-single-pizza-display *ngIf="selected_pizza != null" [pizza]="selected_pizza" (pizza_updated)="updateDashboard()"></app-single-pizza-display>
 
 <h4 *ngIf="selected_pizza != null"> Back to dashboard: <button class="btn btn-success" (click)="deselectPizza()">Go</button> </h4>
 

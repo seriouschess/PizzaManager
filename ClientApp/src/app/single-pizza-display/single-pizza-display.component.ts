@@ -1,5 +1,5 @@
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IngredientDto, PizzaDto, PizzaService } from '../api';
 
 @Component({
@@ -12,9 +12,11 @@ export class SinglePizzaDisplayComponent implements OnInit {
   constructor(private _apiClient:PizzaService) { }
 
   @Input() pizza:PizzaDto;
+  @Output() pizza_updated = new EventEmitter<boolean>();
   all_ingredients:IngredientDto[];
   all_unused_ingredients:IngredientDto[];
   update_mode:boolean;
+  pizza_to_update:PizzaDto;
 
   ngOnInit(): void {
     this.update_mode = false;
@@ -65,13 +67,24 @@ export class SinglePizzaDisplayComponent implements OnInit {
   }
 
   toggleUpdateUI(){
+    this.refreshPizzaToUpdate();
     this.update_mode = !this.update_mode;
   }
 
+  refreshPizzaToUpdate(){
+    this.pizza_to_update = {
+      pizza_id: this.pizza.pizza_id,
+      name: this.pizza.name,
+      pizza_dough_type: this.pizza.pizza_dough_type,
+      is_calzone: this.pizza.is_calzone
+    }
+  }
+
   updatePizzaInformation(){
-    this._apiClient.pizzaUpdatePizza( this.pizza ).subscribe(res => {
+    this._apiClient.pizzaUpdatePizza( this.pizza_to_update ).subscribe(res => {
       this.pizza = res;
       this.toggleUpdateUI();
+      this.pizza_updated.emit(true);
     });
   }
 }
