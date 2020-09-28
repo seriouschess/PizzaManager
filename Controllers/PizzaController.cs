@@ -36,7 +36,7 @@ namespace PizzaManager.Controllers
             List<PizzaDto> all_pizza_dtos = new List<PizzaDto>();
             foreach(Pizza pizza in all_pizzas){
                 PizzaDto pizza_dto = _mapper.Map<PizzaDto>(pizza);
-                List<Ingredient> ingredients = _dbQueries.GetIngredientForPizzaAsStringList(pizza.pizza_id);
+                List<Ingredient> ingredients = _dbQueries.GetIngredientForPizza(pizza.pizza_id);
                 List<IngredientDto> ingredient_dtos = new List<IngredientDto>();
                 foreach(Ingredient ingredient in ingredients){
                     ingredient_dtos.Add(_mapper.Map<IngredientDto>(ingredient));
@@ -56,7 +56,7 @@ namespace PizzaManager.Controllers
 
             //format pizza dto
             PizzaDto found_pizza_dto = _mapper.Map<PizzaDto>(found_pizza);
-            List<Ingredient> ingredients = _dbQueries.GetIngredientForPizzaAsStringList(pizza_id);
+            List<Ingredient> ingredients = _dbQueries.GetIngredientForPizza(pizza_id);
 
             //convert each ingredient to ingredient dto
             List<IngredientDto> ingredient_dtos = new List<IngredientDto>();

@@ -81,7 +81,7 @@ namespace PizzaManager.BusinessLogic
             }
         }
 
-        public List<Ingredient> GetIngredientForPizzaAsStringList( int pizza_id ){
+        public List<Ingredient> GetIngredientForPizza( int pizza_id ){
 
             //can return empty list
             List<Ingredient> ingredients = new List<Ingredient>();
